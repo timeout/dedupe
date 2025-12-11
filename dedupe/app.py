@@ -1,5 +1,7 @@
 import logging
 from dedupe.db.database import Database
+from dedupe.file_metadata import FileMetadata
+from dedupe.repository import FileMetadataRepository
 
 logging.basicConfig(
         level=logging.INFO,
@@ -15,6 +17,17 @@ class App:
 
     def run(self):
         logger.info("Running app...")
+        file_metadata = FileMetadata(
+                id=None,
+                absolute_path="/some/file/out/there.jpg",
+                filename="there.jpg",
+                size=1024,
+                quick_hash="12345dead"
+        )
+        logger.info(f"Creating file metadata: {file_metadata}")
+
+        repo = FileMetadataRepository(self.db)
+        repo.create(file_metadata)
 
 def main() -> None:
     app = App()
