@@ -62,3 +62,9 @@ class Database:
                 logger.error(f"Migration '{version}' failed: {e}")
                 raise
 
+    def execute(self, sql: str, params: tuple = ()):
+        """Execute an SQL query"""
+        return self.conn.execute(sql, params)
+
+    def commit(self):
+        self.conn.commit()
