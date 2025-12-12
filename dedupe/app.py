@@ -1,7 +1,7 @@
 import logging
 from dedupe.db.database import Database
 from dedupe.file_metadata import FileMetadata
-from dedupe.repository import FileMetadataRepository
+from dedupe.repository.file_metadata_repository import FileMetadataRepository
 
 logging.basicConfig(
         level=logging.INFO,
@@ -28,6 +28,15 @@ class App:
 
         repo = FileMetadataRepository(self.db)
         repo.create(file_metadata)
+
+        duplicates = repo.get_all_duplicates()
+        for duplicate in duplicates:
+            logger.info(f"duplicate: {duplicate}")
+
+        all_metadata = repo.get_all()
+        for metadata in all_metadata:
+            logger.info(metadata)
+            repo.delete(metadata.id)
 
 def main() -> None:
     app = App()
