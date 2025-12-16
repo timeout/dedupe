@@ -1,0 +1,11 @@
+[project]
+name = "dedupe"
+version = "0.1.0"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-v"
+
+[tool.coverage.run]
+source = ["dedupe"]

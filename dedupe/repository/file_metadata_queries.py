@@ -4,6 +4,12 @@ CREATE = """
     values (?, ?, ?, ?)
 """
 
+READ_BY_ID = """
+    SELECT *
+    FROM file_metadata
+    WHERE id = ?
+"""
+
 READ_ALL = """
     SELECT *
     FROM file_metadata

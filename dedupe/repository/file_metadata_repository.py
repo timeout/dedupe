@@ -17,6 +17,17 @@ class FileMetadataRepository:
 
         return file_metadata
 
+    def get_by_id(self, file_metadata_id: int) -> FileMetadata:
+        cursor = self.db.execute(
+                queries.READ_BY_ID,
+                (file_metadata_id,)
+        )
+        row = cursor.fetchone()
+        if row is None:
+            return None
+
+        return FileMetadata.from_row(row)
+
     def get_all(self) -> List[FileMetadata]:
         cursor = self.db.execute(queries.READ_ALL)
         return [FileMetadata.from_row(row) for row in cursor.fetchall()]
