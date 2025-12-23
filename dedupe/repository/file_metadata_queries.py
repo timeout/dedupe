@@ -4,15 +4,21 @@ CREATE = """
     values (?, ?, ?, ?)
 """
 
+READ_ALL = """
+    SELECT *
+    FROM file_metadata
+"""
+
 READ_BY_ID = """
     SELECT *
     FROM file_metadata
     WHERE id = ?
 """
 
-READ_ALL = """
+READ_BY_QUICK_HASH = """
     SELECT *
     FROM file_metadata
+    WHERE quick_hash = ?
 """
 
 READ_ALL_DUPLICATES = """

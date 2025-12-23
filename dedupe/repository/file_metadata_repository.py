@@ -25,7 +25,6 @@ class FileMetadataRepository:
         row = cursor.fetchone()
         if row is None:
             return None
-
         return FileMetadata.from_row(row)
 
     def get_all(self) -> List[FileMetadata]:
@@ -35,6 +34,13 @@ class FileMetadataRepository:
     def get_all_duplicates(self) -> List[str]:
         cursor = self.db.execute(queries.READ_ALL_DUPLICATES)
         return [item[0] for item in cursor.fetchall()]
+
+    def get_by_quick_hash(self, quick_hash: str) -> List[FileMetadata]:
+        cursor = self.db.execute(
+            queries.READ_BY_QUICK_HASH,
+            (quick_hash,)
+        )
+        return [FileMetadata.from_row(row) for row in cursor.fetchall()]
 
     def update(self, fileMetadata: FileMetadata) -> FileMetadata:
         pass
