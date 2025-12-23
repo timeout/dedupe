@@ -1,7 +1,9 @@
 import pytest
+
 import db.migration_queries as test_query
 
-class TestDatabase:
+
+class TestDatabaseMigrations:
     """Test database initialization and migrations"""
 
     def test_database_created(self, temp_db):
