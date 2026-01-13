@@ -40,3 +40,21 @@ class TestFileMetadataRepository:
         assert duplicate_quick_hash == "same_hash"
 
         assert unique.quick_hash not in duplicates
+
+    def test_get_duplicate_metadata(self, repo, sample_metadata, duplicate_metadata_group):
+        unique = repo.create(sample_metadata)
+        for duplicate_metadata in duplicate_metadata_group:
+            repo.create(duplicate_metadata)
+
+        created = repo.get_all()
+        assert len(created) == 4
+
+        duplicates = repo.get_all_duplicates()
+        assert len(duplicates) == 1
+
+        duplicate_quick_hash = duplicates[0]
+        assert duplicate_quick_hash == "same_hash"
+
+        duplicate_metadata = repo.get_by_quick_hash(duplicate_quick_hash)
+        for dup in duplicate_metadata:
+            assert dup.id in [metadata.id for metadata in duplicate_metadata]
