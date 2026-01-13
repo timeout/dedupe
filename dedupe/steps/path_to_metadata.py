@@ -13,7 +13,8 @@ def path_to_metadata(path: Path) -> FileMetadata:
         id=None,
         absolute_path=str(path.absolute()),
         filename=path.name,
-        size=stat.st_size
+        size=stat.st_size,
+        created_at=stat.st_ctime
     )
 
 def path_to_metadata_with_quick_hash(path: Path) -> FileMetadata:
@@ -27,7 +28,8 @@ def path_to_metadata_with_quick_hash(path: Path) -> FileMetadata:
                 absolute_path=metadata.absolute_path,
                 filename=metadata.filename,
                 size=metadata.size,
-                quick_hash=hash_val
+                quick_hash=hash_val,
+                created_at=metadata.created_at
             )
         )
     )
